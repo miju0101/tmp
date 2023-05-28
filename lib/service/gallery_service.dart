@@ -4,7 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class GalleryService {
-  void addImage(Map<String, dynamic> myInfo) async {
+  Future<void> addImage(Map<String, dynamic> myInfo) async {
     XFile? selectedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (selectedFile != null) {
@@ -35,6 +35,19 @@ class GalleryService {
     }
   }
 
+  // void addImages(Map<String, dynamic> myInfo) async {
+  //   List<XFile>? selectedFiles = await ImagePicker().pickMultiImage(source: ImageSource.gallery);
+
+  //   if (selectedFiles != null) {
+
+  //   }
+
+  // }
+
+  // Stream<QuerySnapshot> getPhotos() { //에러남
+  //   return FirebaseFirestore.instance.collection("gallery").snapshots();
+  // }
+
   Future<QuerySnapshot> getPhotos() {
     return FirebaseFirestore.instance.collection("gallery").get();
   }
@@ -46,5 +59,5 @@ class GalleryService {
     print("삭제완료");
   }
 
-  void downloadImg() {}
+  void downloadImg() async {}
 }

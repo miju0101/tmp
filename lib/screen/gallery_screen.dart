@@ -60,8 +60,8 @@ class _GalleryScreemState extends State<GalleryScreem> {
                     child: const Text("출석하기"),
                   ),
                   Expanded(
-                    child: FutureBuilder<QuerySnapshot>(
-                      future: checkService.getChecks(),
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: checkService.getChecks(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           List<QueryDocumentSnapshot> docs =
@@ -90,8 +90,8 @@ class _GalleryScreemState extends State<GalleryScreem> {
                   ),
                   const Text("갤러리"),
                   ElevatedButton(
-                    onPressed: () {
-                      galleryService.addImage(myInfo!);
+                    onPressed: () async {
+                      await galleryService.addImage(myInfo!);
                     },
                     child: const Text("사진 추가"),
                   ),
@@ -100,6 +100,7 @@ class _GalleryScreemState extends State<GalleryScreem> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var doc = snapshot.data!.docs;
+
                         return Expanded(
                           child: ListView.builder(
                             itemCount: doc.length,

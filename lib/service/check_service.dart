@@ -18,7 +18,7 @@ class CheckService {
   }
 
   //오늘 출석한 사람을 가져옴
-  Future<QuerySnapshot> getChecks() {
+  Stream<QuerySnapshot> getChecks() {
     String now = DateFormat('yyMMdd').format(DateTime.now());
 
     //check/{now}/users/{uid}
@@ -26,6 +26,6 @@ class CheckService {
         .collection('check')
         .doc(now)
         .collection("users")
-        .get();
+        .snapshots();
   }
 }
